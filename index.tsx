@@ -45,7 +45,11 @@ import {
   Sparkles,
   Key,
   ShieldAlert,
-  Info
+  Info,
+  Banknote,
+  SmartphoneNfc,
+  Coins,
+  ChevronLeft
 } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
 
@@ -660,7 +664,6 @@ const PricingSection = () => {
           <p className="text-zinc-500 dark:text-gray-500">Contratación inmediata desde cualquier país. Aceptamos pagos internacionales.</p>
         </div>
 
-        {/* Carousel Container for mobile/tablet, Grid for Desktop */}
         <div className="relative group/carousel">
           <div 
             ref={carouselRef}
@@ -681,7 +684,6 @@ const PricingSection = () => {
             </div>
           </div>
 
-          {/* Navigation Dots for Mobile */}
           <div className="flex justify-center gap-3 mt-4 lg:hidden">
             {[0, 1, 2, 3].map((i) => (
               <button
@@ -693,7 +695,6 @@ const PricingSection = () => {
             ))}
           </div>
 
-          {/* Swipe Hint for Mobile */}
           <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-2 text-[10px] font-bold text-zinc-400 uppercase tracking-widest lg:hidden animate-bounce">
             <ChevronLeft size={10} /> Desliza para ver más <ChevronRight size={10} />
           </div>
@@ -724,51 +725,98 @@ const PricingSection = () => {
   );
 };
 
-const ChevronLeft = ({ size, className }: { size: number, className?: string }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m15 18-6-6 6-6"/></svg>
-);
-
 const PaymentMethods = () => (
   <div className="mt-20 py-12 border-y border-zinc-200 dark:border-white/5">
     <div className="text-center mb-10">
-      <h3 className="text-2xl font-bold italic mb-2 text-zinc-900 dark:text-white">MEDIOS DE <span className="text-yellow-600 dark:text-yellow-400">PAGO</span></h3>
-      <p className="text-zinc-500 dark:text-gray-500 text-sm">Transacciones rápidas y 100% seguras</p>
+      <h3 className="text-3xl font-black italic mb-2 text-zinc-900 dark:text-white tracking-tighter">MÉTODOS DE <span className="text-yellow-600 dark:text-yellow-400">PAGO</span></h3>
+      <p className="text-zinc-500 dark:text-gray-500 text-sm font-medium">Activación express tras verificación de comprobante</p>
     </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-      <div className="bg-zinc-50 dark:bg-white/5 p-6 rounded-2xl border border-zinc-200 dark:border-white/10 space-y-6 group premium-card">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-yellow-400/20 rounded flex items-center justify-center text-yellow-600 dark:text-yellow-400 group-hover:scale-110 transition-transform">
-            <Building2 size={20} />
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {/* Sección Chile */}
+      <div className="bg-white dark:bg-white/5 p-8 rounded-[2rem] border border-zinc-200 dark:border-white/10 space-y-6 group premium-card">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-yellow-500/10 rounded-2xl flex items-center justify-center text-yellow-600 dark:text-yellow-400 group-hover:scale-110 transition-transform">
+              <Building2 size={24} />
+            </div>
+            <h4 className="font-black text-xl uppercase tracking-tighter text-zinc-900 dark:text-white">Chile (Nacional)</h4>
           </div>
-          <h4 className="font-bold text-lg uppercase tracking-wider text-zinc-900 dark:text-white">Chile (Nacional)</h4>
+          <div className="px-3 py-1 bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 text-[10px] font-black rounded-full uppercase tracking-widest">Sin Comisiones</div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex items-center gap-3 text-sm text-zinc-600 dark:text-gray-400 bg-white dark:bg-black/40 p-3 rounded-xl border border-zinc-200 dark:border-white/10 hover:border-yellow-400 transition-colors">
-            <CreditCard className="text-yellow-600 dark:text-yellow-400" size={18} /> Webpay / Transbank
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex items-center gap-3 p-4 bg-zinc-50 dark:bg-black/40 rounded-2xl border border-zinc-200 dark:border-white/10 group/item hover:border-yellow-500 transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-600"><CreditCard size={20} /></div>
+            <div className="flex flex-col">
+              <span className="text-sm font-black text-zinc-900 dark:text-white">Webpay (Flow)</span>
+              <span className="text-[10px] text-zinc-500">Tarjetas y RedCompra</span>
+            </div>
           </div>
-          <div className="flex items-center gap-3 text-sm text-zinc-600 dark:text-gray-400 bg-white dark:bg-black/40 p-3 rounded-xl border border-zinc-200 dark:border-white/10 hover:border-yellow-400 transition-colors">
-            <Wallet className="text-yellow-600 dark:text-yellow-400" size={18} /> Transferencia Rut
+          <div className="flex items-center gap-3 p-4 bg-zinc-50 dark:bg-black/40 rounded-2xl border border-zinc-200 dark:border-white/10 group/item hover:border-yellow-500 transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-600"><Wallet size={20} /></div>
+            <div className="flex flex-col">
+              <span className="text-sm font-black text-zinc-900 dark:text-white">Transferencia RUT</span>
+              <span className="text-[10px] text-zinc-500">Activación en minutos</span>
+            </div>
           </div>
-          <div className="flex items-center gap-3 text-sm text-zinc-600 dark:text-gray-400 bg-white dark:bg-black/40 p-3 rounded-xl border border-zinc-200 dark:border-white/10 hover:border-yellow-400 transition-colors">Mach / Mercado Pago</div>
-          <div className="flex items-center gap-3 text-sm text-zinc-600 dark:text-gray-400 bg-white dark:bg-black/40 p-3 rounded-xl border border-zinc-200 dark:border-white/10 hover:border-yellow-400 transition-colors">Sencillito / Klap</div>
+          <div className="flex items-center gap-3 p-4 bg-zinc-50 dark:bg-black/40 rounded-2xl border border-zinc-200 dark:border-white/10 group/item hover:border-yellow-500 transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600"><SmartphoneNfc size={20} /></div>
+            <div className="flex flex-col">
+              <span className="text-sm font-black text-zinc-900 dark:text-white">MACH / Chek</span>
+              <span className="text-[10px] text-zinc-500">Apps de pago digital</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-4 bg-zinc-50 dark:bg-black/40 rounded-2xl border border-zinc-200 dark:border-white/10 group/item hover:border-yellow-500 transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-600"><CheckCircle size={20} /></div>
+            <div className="flex flex-col">
+              <span className="text-sm font-black text-zinc-900 dark:text-white">Mercado Pago</span>
+              <span className="text-[10px] text-zinc-500">Dinero en cuenta / QR</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="bg-zinc-50 dark:bg-white/5 p-6 rounded-2xl border border-zinc-200 dark:border-white/10 space-y-6 group premium-card">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-blue-400/20 rounded flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
-            <Globe size={20} />
+
+      {/* Sección Internacional */}
+      <div className="bg-white dark:bg-white/5 p-8 rounded-[2rem] border border-zinc-200 dark:border-white/10 space-y-6 group premium-card">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
+              <Globe size={24} />
+            </div>
+            <h4 className="font-black text-xl uppercase tracking-tighter text-zinc-900 dark:text-white">Internacional</h4>
           </div>
-          <h4 className="font-bold text-lg uppercase tracking-wider text-zinc-900 dark:text-white">Internacional</h4>
+          <div className="px-3 py-1 bg-blue-500/20 text-blue-700 dark:text-blue-400 text-[10px] font-black rounded-full uppercase tracking-widest">En todo el mundo</div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex items-center gap-3 text-sm text-zinc-600 dark:text-gray-400 bg-white dark:bg-black/40 p-3 rounded-xl border border-zinc-200 dark:border-white/10 hover:border-blue-400 transition-colors">
-            <Bitcoin className="text-yellow-600 dark:text-yellow-400" size={18} /> Binance (USDT/BTC)
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex items-center gap-3 p-4 bg-zinc-50 dark:bg-black/40 rounded-2xl border border-zinc-200 dark:border-white/10 group/item hover:border-blue-500 transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-600"><Coins size={20} /></div>
+            <div className="flex flex-col">
+              <span className="text-sm font-black text-zinc-900 dark:text-white">PayPal</span>
+              <span className="text-[10px] text-zinc-500">Saldo o Tarjeta de Crédito</span>
+            </div>
           </div>
-          <div className="flex items-center gap-3 text-sm text-zinc-600 dark:text-gray-400 bg-white dark:bg-black/40 p-3 rounded-xl border border-zinc-200 dark:border-white/10 hover:border-blue-400 transition-colors">
-            <CreditCard className="text-yellow-600 dark:text-yellow-400" size={18} /> PayPal
+          <div className="flex items-center gap-3 p-4 bg-zinc-50 dark:bg-black/40 rounded-2xl border border-zinc-200 dark:border-white/10 group/item hover:border-blue-500 transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-600"><Bitcoin size={20} /></div>
+            <div className="flex flex-col">
+              <span className="text-sm font-black text-zinc-900 dark:text-white">Binance Pay</span>
+              <span className="text-[10px] text-zinc-500">USDT / BTC (Sin comisión)</span>
+            </div>
           </div>
-          <div className="flex items-center gap-3 text-sm text-zinc-600 dark:text-gray-400 bg-white dark:bg-black/40 p-3 rounded-xl border border-zinc-200 dark:border-white/10 hover:border-blue-400 transition-colors">Zelle / Western Union</div>
-          <div className="flex items-center gap-3 text-sm text-zinc-600 dark:text-gray-400 bg-white dark:bg-black/40 p-3 rounded-xl border border-zinc-200 dark:border-white/10 hover:border-blue-400 transition-colors">Criptomonedas (P2P)</div>
+          <div className="flex items-center gap-3 p-4 bg-zinc-50 dark:bg-black/40 rounded-2xl border border-zinc-200 dark:border-white/10 group/item hover:border-blue-500 transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-600"><Send size={20} /></div>
+            <div className="flex flex-col">
+              <span className="text-sm font-black text-zinc-900 dark:text-white">Zelle</span>
+              <span className="text-[10px] text-zinc-500">Transferencia USA (Sujeto a plan)</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-4 bg-zinc-50 dark:bg-black/40 rounded-2xl border border-zinc-200 dark:border-white/10 group/item hover:border-blue-500 transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-600"><Globe size={20} /></div>
+            <div className="flex flex-col">
+              <span className="text-sm font-black text-zinc-900 dark:text-white">Airtm / Global66</span>
+              <span className="text-[10px] text-zinc-500">Pagos globales rápidos</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -854,7 +902,7 @@ const PaymentValidationSection = () => {
             <ShieldCheck className="text-yellow-600 dark:text-yellow-400" size={32} />
           </div>
           <h2 className="text-4xl font-extrabold italic text-zinc-900 dark:text-white">VALIDAR <span className="text-yellow-600 dark:text-yellow-400">PAGO</span></h2>
-          <p className="text-zinc-500 dark:text-gray-500">¿Ya realizaste tu pago? Reporta aquí para activar tu servicio al instante.</p>
+          <p className="text-zinc-500 dark:text-gray-500">Reporta tu pago para activar tu servicio al instante.</p>
         </div>
         <div className="premium-card p-8 md:p-12 rounded-3xl relative overflow-hidden bg-white dark:bg-transparent group">
           {status === 'success' ? (
@@ -863,7 +911,7 @@ const PaymentValidationSection = () => {
                 <CheckCircle size={40} className="text-white" />
               </div>
               <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">¡Pago Reportado con Éxito!</h3>
-              <p className="text-zinc-500 dark:text-gray-400 max-w-sm mx-auto">Tu información ha sido enviada a nuestro equipo de activaciones. Para mayor velocidad, confirma ahora por WhatsApp.</p>
+              <p className="text-zinc-500 dark:text-gray-400 max-w-sm mx-auto">Tu información ha sido enviada. Confirma ahora por WhatsApp para activar tu cuenta.</p>
               <button onClick={handleWhatsAppRedirect} className="bg-[#25d366] text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-[#20bd5a] transition flex items-center justify-center gap-3 mx-auto shadow-lg hover:scale-105 active:scale-95"><MessageCircle size={24} /> Confirmar en WhatsApp</button>
             </div>
           ) : (
@@ -884,26 +932,26 @@ const PaymentValidationSection = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 block">Plan</label>
+                  <label className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 block">Plan Elegido</label>
                   <select className="w-full bg-zinc-100 dark:bg-black/40 border border-zinc-200 dark:border-white/10 rounded-xl px-4 py-3 text-zinc-900 dark:text-white focus:border-yellow-500 outline-none transition appearance-none cursor-pointer" value={formData.plan} onChange={e => setFormData({...formData, plan: e.target.value})}>
-                    <option value="1 Mes">1 Mes ($8.000 CLP)</option>
-                    <option value="3 Meses">3 Meses ($22.000 CLP)</option>
-                    <option value="6 Meses">6 Meses ($40.000 CLP)</option>
-                    <option value="12 Meses">12 Meses ($75.000 CLP)</option>
+                    <option value="1 Mes - $8.000">1 Mes ($8.000 CLP)</option>
+                    <option value="3 Meses - $22.000">3 Meses ($22.000 CLP)</option>
+                    <option value="6 Meses - $45.000">6 Meses ($45.000 CLP)</option>
+                    <option value="12 Meses - $75.000">12 Meses ($75.000 CLP)</option>
                   </select>
                 </div>
               </div>
               <div className="space-y-4">
                 <div className="group/input">
-                  <label className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 block group-focus-within/input:text-yellow-500 transition-colors">ID / Referencia</label>
+                  <label className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 block group-focus-within/input:text-yellow-500 transition-colors">Referencia / RUT de Pago</label>
                   <div className="relative">
                     <FileText className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within/input:text-yellow-500 transition-colors" size={18} />
-                    <input required type="text" placeholder="N° Transacción / Rut" className="w-full bg-zinc-100 dark:bg-black/40 border border-zinc-200 dark:border-white/10 rounded-xl px-12 py-3 text-zinc-900 dark:text-white focus:border-yellow-500 outline-none transition" value={formData.reference} onChange={e => setFormData({...formData, reference: e.target.value})} />
+                    <input required type="text" placeholder="N° Operación o RUT de quien pagó" className="w-full bg-zinc-100 dark:bg-black/40 border border-zinc-200 dark:border-white/10 rounded-xl px-12 py-3 text-zinc-900 dark:text-white focus:border-yellow-500 outline-none transition" value={formData.reference} onChange={e => setFormData({...formData, reference: e.target.value})} />
                   </div>
                 </div>
                 <div className="relative group/upload">
-                  <label className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 block group-focus-within/upload:text-yellow-500 transition-colors">Comprobante</label>
-                  <div className={`relative border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center transition-all ${imagePreview ? 'border-yellow-500' : 'border-zinc-200 dark:border-white/10 hover:border-yellow-500/50 hover:bg-yellow-500/5'}`}>
+                  <label className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 block group-focus-within/upload:text-yellow-500 transition-colors">Adjuntar Comprobante</label>
+                  <div className={`relative border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center transition-all ${imagePreview ? 'border-yellow-500 bg-yellow-500/5' : 'border-zinc-200 dark:border-white/10 hover:border-yellow-500/50 hover:bg-yellow-500/5'}`}>
                     <input type="file" accept="image/*" onChange={handleImageChange} className="absolute inset-0 opacity-0 cursor-pointer" />
                     {imagePreview ? (
                       <div className="relative w-full h-32 rounded-lg overflow-hidden group-hover:scale-105 transition-transform">
@@ -913,13 +961,13 @@ const PaymentValidationSection = () => {
                     ) : (
                       <>
                         <Upload className="text-zinc-400 mb-2 group-hover/upload:text-yellow-500 group-hover/upload:scale-110 transition-all" size={24} />
-                        <span className="text-xs text-zinc-400 text-center group-hover/upload:text-yellow-500 transition-colors">Toca para subir captura</span>
+                        <span className="text-xs text-zinc-400 text-center group-hover/upload:text-yellow-500 transition-colors">Subir captura del pago</span>
                       </>
                     )}
                   </div>
                 </div>
                 <button disabled={status === 'loading'} className="w-full bg-yellow-500 dark:bg-yellow-400 text-black py-4 rounded-xl font-bold text-lg hover:bg-yellow-400 transition-all flex items-center justify-center gap-2 mt-4 hover:scale-[1.02] active:scale-95 shadow-lg shadow-yellow-500/20">
-                  {status === 'loading' ? <Loader2 className="animate-spin" size={24} /> : <><Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /> Enviar Comprobante</>}
+                  {status === 'loading' ? <Loader2 className="animate-spin" size={24} /> : <><Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /> Validar Ahora</>}
                 </button>
               </div>
             </form>
@@ -954,7 +1002,7 @@ const ChatBot = () => {
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: userMsg,
-        config: { systemInstruction: "Eres un asistente virtual experto de Full Premium TvGo. Ofreces canales en vivo (Latam, Global), deportes (FIFA 2026, Libertadores, Sudamericana), VOD (Películas/Series que se renuevan semanalmente), contenido infantil, novelas y adultos. Planes: Mensual $8000 CLP, 3 meses $22000, 6 meses $40000 (mejor valor), Anual $75000. Ofrecemos DEMO gratis de 3 horas. Métodos de pago Chile: Webpay, Transbank, Transferencia, Cuenta Rut. Internacional: PayPal, Binance, Zelle, Western Union. Sé amable, breve y siempre motiva al usuario a contactar por WhatsApp al +56979429123." },
+        config: { systemInstruction: "Eres un asistente virtual experto de Full Premium TvGo. Ofreces canales en vivo (Latam, Global), deportes (FIFA 2026, Libertadores, Sudamericana), VOD (Películas/Series que se renuevan semanalmente), contenido infantil, novelas y adultos. Planes: Mensual $8000 CLP, 3 meses $22000, 6 meses $45000 (mejor valor), Anual $75000. Ofrecemos DEMO gratis de 3 horas. Métodos de pago Chile: Webpay, Flow, Cuenta RUT, MACH, Mercado Pago. Internacional: PayPal, Binance Pay (USDT), Zelle. Sé amable, breve y siempre motiva al usuario a contactar por WhatsApp al +56979429123." },
       });
       setMessages(prev => [...prev, { role: 'bot', text: response.text || "Contacta a soporte." }]);
     } catch {
