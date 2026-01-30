@@ -1,5 +1,8 @@
 {
-  "description": "Full Premium TvGo - Landing page profesional de ventas de streaming con integración a WhatsApp y diseño de alta gama.",
-  "requestFramePermissions": [],
+  "description": "Full Premium TvGo - Plataforma de Streaming 4K con Checkout Seguro Integrado y Asistente IA.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
   "name": "Full Premium TvGo"
 }
